@@ -1,0 +1,42 @@
+﻿@page "/EventCallbackParent"
+@rendermode @(new InteractiveServerRenderMode(prerender:false))
+<PageTitle>RefParent</PageTitle>
+
+<h3>EventCallbackParent</h3>
+
+<div class="container mb-5">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">List of Names using @@Ref Attribute</div>
+                <div class="card-body">
+                    <ol class="list-group">
+                        @if (Names!.Count > 0)
+                        {
+                            foreach (string name in Names)
+                            {
+                                <li class="list-group-item">@name</li>
+                            }
+                        }
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<EventCallbackChild AddNameEventCallBack="GetNameFromChild"/>
+
+
+@code {
+    List<string>? Names = new();
+
+    private void GetNameFromChild(string name)
+    {
+        if (string.IsNullOrWhiteSpace(name))
+            return;
+        Names!.Add(name);
+        // StateHasChanged();
+    }
+}

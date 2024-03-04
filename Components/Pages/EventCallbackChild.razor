@@ -1,0 +1,27 @@
+﻿@page "/EventCallbackChild"
+<PageTitle>Event Callback Child</PageTitle>
+
+
+<h3>EventCallbackChild</h3>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <InputText @bind-Value="_name" />
+            <button class="btn btn-info" @onclick="AddNameHandler">Add Name</button>
+        </div>
+    </div>
+</div>
+
+
+@code {
+    [Parameter, EditorRequired]
+    public EventCallback<string> AddNameEventCallBack { get; set; }
+    private string _name;
+
+    private async Task AddNameHandler(MouseEventArgs e)
+    {
+        await AddNameEventCallBack.InvokeAsync(_name);
+        _name = string.Empty;
+    }
+}

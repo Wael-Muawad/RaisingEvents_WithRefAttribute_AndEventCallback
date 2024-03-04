@@ -1,0 +1,42 @@
+﻿@page "/refchild"
+<PageTitle>RefChild</PageTitle>
+
+
+<h3>RefChild</h3>
+
+<div class="container mb-5">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">List of Names using @@Ref Attribute</div>
+                <div class="card-body">
+                    <ol class="list-group">
+                        @if (Names!.Count > 0)
+                        {
+                            foreach (string name in Names)
+                            {
+                                <li class="list-group-item">@name</li>
+                            }
+                        }
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@code {
+    private List<string>? Names = new();
+
+    public void AddName(string name)
+    {
+        if (string.IsNullOrWhiteSpace(name))
+            return;
+        Names!.Add(name);
+        StateHasChanged();
+    }
+
+}

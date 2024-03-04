@@ -1,0 +1,32 @@
+﻿@page "/"
+@page "/refparent"
+@rendermode @(new InteractiveServerRenderMode(prerender:false))
+<PageTitle>RefParent</PageTitle>
+
+
+<RefChild @ref="refChild" />
+
+<div class="container">
+    <h3>RefParent</h3>
+    <div class="row">
+        <div class="col-md-6">
+            <InputText @bind-Value="_name" />
+            <button class="btn btn-info" @onclick="AddNameHandler">Add Name</button>
+        </div>
+    </div>
+</div>
+
+
+@code {
+    RefChild refChild = new();
+    private string _name;
+
+    private void AddNameHandler(MouseEventArgs e)
+    {
+        if (string.IsNullOrWhiteSpace(_name))
+            return;
+
+        refChild.AddName(_name);
+        _name = string.Empty;
+    }
+}
